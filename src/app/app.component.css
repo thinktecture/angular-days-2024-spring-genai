@@ -1,0 +1,7 @@
+pre {
+  text-wrap: wrap;
+}
+
+input[type=text] {
+  width: 300px;
+}
