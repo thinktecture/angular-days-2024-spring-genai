@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   protected readonly progress = signal(0);
   protected readonly ready = signal(false);
   // LAB #3
+  protected readonly reply = signal('');
   // LAB #5
 
   async ngOnInit() {
@@ -28,6 +29,9 @@ export class AppComponent implements OnInit {
 
   async runPrompt(userPrompt: string) {
     // LAB #3, #7 and #8
+    await this.chatModule.resetChat();
+    this.reply.set('…');
+    await this.chatModule.generate(userPrompt, (_, reply) => this.reply.set(reply));
   }
 
   addTodo(text: string) {
