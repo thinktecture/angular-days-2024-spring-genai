@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ChatModule } from '@mlc-ai/web-llm';
 import { model_list } from './model-list';
 import { Todo } from './todo';
 
@@ -12,11 +13,17 @@ import { Todo } from './todo';
 })
 export class AppComponent implements OnInit {
   // LAB #2
+  protected readonly chatModule = new ChatModule();
+  protected readonly progress = signal(0);
+  protected readonly ready = signal(false);
   // LAB #3
   // LAB #5
 
   async ngOnInit() {
     // LAB #2
+    this.chatModule.setInitProgressCallback(({progress}) => this.progress.set(progress));
+    await this.chatModule.reload('Mistral-7B-Instruct-v0.2-q4f16_1', undefined, { model_list });
+    this.ready.set(true);
   }
 
   async runPrompt(userPrompt: string) {

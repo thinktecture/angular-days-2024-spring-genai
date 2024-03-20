@@ -3,3 +3,8 @@
 <!-- LAB #5 and #6 -->
 
 <!-- LAB #2 and #3 -->
+<div><progress [value]="progress()"></progress></div>
+<input type="text" #prompt>
+<button (click)="runPrompt(prompt.value)" [disabled]="!ready()">
+  Ask
+</button>
