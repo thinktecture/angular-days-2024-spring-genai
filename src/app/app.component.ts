@@ -32,7 +32,13 @@ export class AppComponent implements OnInit {
     // LAB #3, #7 and #8
     await this.chatModule.resetChat();
     this.reply.set('…');
-    await this.chatModule.generate(userPrompt, (_, reply) => this.reply.set(reply));
+
+    const systemPrompt = `Here's the user's todo list:
+    ${this.todos().map(todo => `* ${todo.text} (${todo.done ? 'done' : 'not done'})`).join('\n')}`;
+    await this.chatModule.generate([
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt },
+    ], (_, reply) => this.reply.set(reply));
   }
 
   addTodo(text: string) {
