@@ -5,7 +5,10 @@
 <button (click)="addTodo(input.value)">Add</button>
 <ul>
   @for(todo of todos(); track $index) {
-    <li>{{ todo.text }}</li>
+    <li>
+      <input type="checkbox" [checked]="todo.done" (change)="toggleTodo($index)">
+      {{ todo.text }}
+    </li>
   }
 </ul>
 
