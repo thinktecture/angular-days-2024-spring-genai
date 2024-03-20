@@ -1,6 +1,13 @@
 <h1>GenAI Workshop</h1>
 
 <!-- LAB #5 and #6 -->
+<input type="text" #input>
+<button (click)="addTodo(input.value)">Add</button>
+<ul>
+  @for(todo of todos(); track $index) {
+    <li>{{ todo.text }}</li>
+  }
+</ul>
 
 <!-- LAB #2 and #3 -->
 <div><progress [value]="progress()"></progress></div>
