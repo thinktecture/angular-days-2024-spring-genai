@@ -33,8 +33,13 @@ export class AppComponent implements OnInit {
     await this.chatModule.resetChat();
     this.reply.set('…');
 
-    const systemPrompt = `Here's the user's todo list:
-    ${this.todos().map(todo => `* ${todo.text} (${todo.done ? 'done' : 'not done'})`).join('\n')}`;
+    const systemPrompt = `You are a helpful assistant.
+    The user will ask questions about their todo list.
+    Briefly answer the questions.
+    Don't try to make up an answer if you don't know it.
+    Here's the user's todo list:
+    ${this.todos().map(todo => `* ${todo.text} (this todo is ${todo.done ? 'done' : 'not done'})`).join('\n')}
+    ${this.todos().length === 0 ? 'The list is empty, there are no todos.' : ''}`;
     await this.chatModule.generate([
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt },
